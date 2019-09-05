@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _weatherModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weatherModule */ \"./src/javascript/weatherModule.js\");\n\n\nconsole.log('Hello Weather app!');\nObject(_weatherModule__WEBPACK_IMPORTED_MODULE_0__[\"loadWeather\"])();\n\n\n//# sourceURL=webpack:///./src/javascript/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _weatherModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weatherModule */ \"./src/javascript/weatherModule.js\");\n\n\nconst city = document.querySelector('div[weather] form > input[name=\"city\"]').value\nconst country = document.querySelector('div[weather] form > input[name=\"country\"]').value\nconst form = document.querySelector('div[weather] form')\n\nform.addEventListener('submit', (event) => {\n  Object(_weatherModule__WEBPACK_IMPORTED_MODULE_0__[\"loadWeather\"])(city, country)\n  form.reset()\n  event.preventDefault()\n})\n\n\n//# sourceURL=webpack:///./src/javascript/index.js?");
 
 /***/ }),
 
@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _wea
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadWeather\", function() { return loadWeather; });\nconst loadWeather = () => {\n  const container = document.querySelector('div[weather] p');\n  const url = 'https://api.aerisapi.com/observations/seattle,wa?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK';\n  fetch(url, { mode: 'cors' })\n    .then((response) => response.json())\n    .then((response) => {\n      console.log(response);\n      const {\n        weather, tempF, tempC, humidity, icon, isDay, windDir,\n      } = response.response.ob;\n      const { country, name, state } = response.response.place;\n      const { lat, long } = response.response.loc;\n      container.innerHTML = `The current weather in Seattle is ${weather.toLowerCase()} with a temperature of ${tempF}&deg;`;\n    })\n    .catch((error) => {\n      console.error(error);\n    });\n};\n\n\n\n\n\n//# sourceURL=webpack:///./src/javascript/weatherModule.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadWeather\", function() { return loadWeather; });\nconst loadWeather = (ci, co) => {\n  const container = document.querySelector('div[weather] p');\n  const url = `https://api.aerisapi.com/observations/${ci},${co}?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK`;\n  fetch(url, { mode: 'cors' })\n    .then((response) => response.json())\n    .then((response) => {\n      console.log(ci, co);\n      const {\n        weather, tempF, tempC, humidity, icon, isDay, windDir,\n      } = response.response.ob;\n      const { country, name, state } = response.response.place;\n      const { lat, long } = response.response.loc;\n      container.innerHTML = `The current weather in ${state} is ${weather.toLowerCase()} with a temperature of ${tempF}&deg;`;\n    })\n    .catch((error) => {\n      console.error(error);\n    });\n};\n\n\n\n\n\n//# sourceURL=webpack:///./src/javascript/weatherModule.js?");
 
 /***/ })
 
