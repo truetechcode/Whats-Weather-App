@@ -1,0 +1,30 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "Whats Wheather is a simple wheather app that tells the whether of the day based on selected location.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development --open",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/truetechcode/Whats-Weather-App.git"
+  },
+  "author": "\"Terver Aosu\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/truetechcode/Whats-Weather-App/issues"
+  },
+  "homepage": "https://github.com/truetechcode/Whats-Weather-App#readme",
+  "keywords": [
+    "\"Wheather\""
+  ],
+  "devDependencies": {
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
