@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/javascript/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -90,32 +90,23 @@
 /*!*********************************!*\
   !*** ./src/javascript/index.js ***!
   \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("\n\n//# sourceURL=webpack:///./src/javascript/index.js?");
-
-/***/ }),
-
-/***/ "./src/sass/index.scss":
-/*!*****************************!*\
-  !*** ./src/sass/index.scss ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("\n\n//# sourceURL=webpack:///./src/sass/index.scss?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _weatherModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weatherModule */ \"./src/javascript/weatherModule.js\");\n\n\nconsole.log('Hello Weather app!');\nObject(_weatherModule__WEBPACK_IMPORTED_MODULE_0__[\"loadWeather\"])();\n\n\n//# sourceURL=webpack:///./src/javascript/index.js?");
 
 /***/ }),
 
-/***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./src/javascript/index.js ./src/sass/index.scss ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/javascript/weatherModule.js":
+/*!*****************************************!*\
+  !*** ./src/javascript/weatherModule.js ***!
+  \*****************************************/
+/*! exports provided: loadWeather */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("__webpack_require__(/*! ./src/javascript/index.js */\"./src/javascript/index.js\");\nmodule.exports = __webpack_require__(/*! ./src/sass/index.scss */\"./src/sass/index.scss\");\n\n\n//# sourceURL=webpack:///multi_./src/javascript/index.js_./src/sass/index.scss?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadWeather\", function() { return loadWeather; });\nconst loadWeather = () => {\n  const container = document.querySelector('div[weather] p');\n  const url = 'https://api.aerisapi.com/observations/seattle,wa?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK';\n  fetch(url, { mode: 'cors' })\n    .then((response) => response.json())\n    .then((response) => {\n      console.log(response);\n      const {\n        weather, tempF, tempC, humidity, icon, isDay, windDir,\n      } = response.response.ob;\n      const { country, name, state } = response.response.place;\n      const { lat, long } = response.response.loc;\n      container.innerHTML = `The current weather in Seattle is ${weather.toLowerCase()} with a temperature of ${tempF}&deg;`;\n    })\n    .catch((error) => {\n      console.error(error);\n    });\n};\n\n\n\n\n\n//# sourceURL=webpack:///./src/javascript/weatherModule.js?");
 
 /***/ })
 
