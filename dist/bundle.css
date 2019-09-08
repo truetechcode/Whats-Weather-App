@@ -96,11 +96,8 @@ body {
     background-color: #f6f3ee;
 }
 
-h1 {
-    font-size: 70px;
-    font-family: 'Fredoka One', cursive;
-    text-align: center;
-    color: #5a5243;
+button {
+  cursor: pointer;
 }
 
 div[weather] {
@@ -121,6 +118,8 @@ div[weather] h2{
   border-radius: 5px;
   text-align: center;
   font-variant-caps: all-small-caps;
+  font-family: 'Fredoka One', cursive;
+  color: #5a5243;
 }
 
 div[weather] p{
