@@ -3,6 +3,20 @@ const location = document.createElement('div');
 const img = document.createElement('img');
 location.classList.add('location');
 let tempArray = [];
+let tempCount = 1;
+
+const clickB = () => {
+  const tempButton = document.querySelector('#temp-button');
+  const tempHolder = document.querySelector('#temp-holder');
+  tempButton.addEventListener('click', (e) => {
+    if(tempCount % 2 === 0){
+      tempHolder.innerHTML = tempArray[0]
+    }else{
+      tempHolder.innerHTML = tempArray[1]
+    }
+    tempCount++
+    })
+}
 
 const loadWeather = (ci, co) => {
   const url = `https://api.aerisapi.com/observations/${ci},${co}?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK`;
@@ -33,6 +47,7 @@ const loadWeather = (ci, co) => {
         img.setAttribute('alt', 'weather-icon');
         container.appendChild(location)
         container.appendChild(img)
+        clickB();
       } else {
         container.innerHTML = `<p>Sorry! The weather data for ${ci}, ${co} is not available, try again later.</p>`;
       }
