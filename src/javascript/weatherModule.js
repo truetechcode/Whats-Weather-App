@@ -26,7 +26,7 @@ const loadWeather = (ci, co) => {
   fetch(url, { mode: 'cors' })
     .then((response) => response.json())
     .then((response) => {
-      if (response.error === null) {
+      if (response) {
         const {
           weather, tempF, tempC, icon, isDay,
         } = response.response.ob;
