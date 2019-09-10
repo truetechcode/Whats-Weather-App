@@ -31,8 +31,8 @@ const WeatherModule = (() => {
   mod.fetchWeather = (city, country) => {
     const url = `https://api.aerisapi.com/observations/${city},${country}?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK`;
     return fetch(url, { mode: 'cors' })
-      .then((response) => response.json())
-      .then((response) => WeatherModule.loadWeather(response, city))
+      .then(response => response.json())
+      .then(response => WeatherModule.loadWeather(response, city))
       .catch(() => {
         container.innerHTML = errorContent(city);
       });
