@@ -141,6 +141,12 @@ div[weather] img{
   width: 200px;
 }
 
+div[weather] #loading{
+  font-size: 2em;
+  font-weight: bold;
+  color: #F5F5F5;
+}
+
 div[weather] .content{
   display: flex;
   justify-content: space-around;

@@ -1,4 +1,4 @@
-const errorContent = city => `<p>Sorry! The weather data for ${city} is not available, try again later.</p>`;
+const errorContent = city => `<p id="loading">Sorry! The weather data for ${city} is not available, try again later.</p>`;
 const weatherContent = (response, city) => {
   const {
     weather, tempF,
