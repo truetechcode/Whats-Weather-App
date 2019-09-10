@@ -1,64 +1,48 @@
-/* eslint-disable no-unused-vars */
+import { errorContent, weatherContent } from "./contentModule";
+import { tempButtonFunction } from "./temperatureChangeModule";
+
 const container = document.querySelector('div[weather] .content');
-const location = document.createElement('div');
-const img = document.createElement('img');
-location.classList.add('location');
-let tempArray = [];
-let tempCount = 1;
 
-const tempButtonFunction = () => {
-  const tempButton = document.querySelector('#temp-button');
-  const tempHolder = document.querySelector('#temp-holder');
-  const [tempF, tempC] = tempArray;
-  tempButton.addEventListener('click', (e) => {
-    if (tempCount % 2 === 0) {
-      tempHolder.innerHTML = tempF;
-    } else {
-      tempHolder.innerHTML = tempC;
+const WeatherModule = (()=>{
+  const location = document.createElement('div');
+  const img = document.createElement('img');
+  location.classList.add('location');
+
+  const mod = {}
+  
+  mod.tempArray = [];
+  mod.loadWeather = (response, city) => {
+    const {
+      tempF, tempC, icon,
+    } = response.response.ob;
+
+    WeatherModule.tempArray = [`${tempF}&#8457;`, `${tempC}&#8451;`];
+
+    const data = response.response
+    const content = weatherContent(data, city);
+    location.innerHTML = content;
+    img.setAttribute('src', `https://cdn.aerisapi.com/wxicons/v2/${icon}`);
+    img.setAttribute('alt', 'weather-icon');
+    container.appendChild(location);
+    container.appendChild(img);
+    tempButtonFunction();
+  },
+
+  mod.fetchWeather = async (city, country) => {
+    const url = `https://api.aerisapi.com/observations/${city},${country}?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK`;
+    try {
+      const response = await fetch(url, { mode: 'cors' });
+      const response_1 = await response.json();
+      return WeatherModule.loadWeather(response_1, city);
     }
-    tempCount += 1;
-    e.preventDefault();
-  });
-};
+    catch (e) {
+      console.log(e);
+      container.innerHTML = errorContent(city);
+    }
+  };
 
-const loadWeather = (ci, co) => {
-  const url = `https://api.aerisapi.com/observations/${ci},${co}?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK`;
-  fetch(url, { mode: 'cors' })
-    .then((response) => response.json())
-    .then((response) => {
-      if (response) {
-        const {
-          weather, tempF, tempC, icon, isDay,
-        } = response.response.ob;
-        tempArray = [`${tempF}&#8457;`, `${tempC}&#8451;`];
-        const { lat, long } = response.response.loc;
-        const content = `<p class="header">
-        Location: <span>${ci}, ${co}</span>
-      </p>
-      <p>            
-        Lat: <span>${lat}</span>
-      </p>
-      <p>
-        Long: <span>${long}</span>
-      </p>
-      <p class="description">
-        <p>Weather: <span>${weather.toLowerCase()}</span></p>
-        <p>Temperature: <span id="temp-holder">${tempF}&#8457;</span> <button id="temp-button">&#8457; / &#8451;</button></p>            
-      </p>`;
-        location.innerHTML = content;
-        img.setAttribute('src', `https://cdn.aerisapi.com/wxicons/v2/${icon}`);
-        img.setAttribute('alt', 'weather-icon');
-        container.appendChild(location);
-        container.appendChild(img);
-        tempButtonFunction();
-      } else {
-        container.innerHTML = `<p>Sorry! The weather data for ${ci}, ${co} is not available, try again later.</p>`;
-      }
-    })
-    .catch(() => {
-      container.innerHTML = `<p>Sorry! The weather data for ${ci}, ${co} is not available, try again later.</p>`;
-    });
-};
+  return mod;
+})();
 
 
-export { loadWeather, container };
+export { WeatherModule, container };

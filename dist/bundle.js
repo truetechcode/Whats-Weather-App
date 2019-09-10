@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/javascript/contentModule.js":
+/*!*****************************************!*\
+  !*** ./src/javascript/contentModule.js ***!
+  \*****************************************/
+/*! exports provided: errorContent, weatherContent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"errorContent\", function() { return errorContent; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"weatherContent\", function() { return weatherContent; });\nconst errorContent = (city) => `<p>Sorry! The weather data for ${city} is not available, try again later.</p>`;\nconst weatherContent = (response, city) => {\n  const {\n    weather, tempF,\n  } = response.ob;\n  const { lat, long } = response.loc;\n  return `<p class=\"header\">\n  Location: <span>${city}</span>\n</p>\n<p>            \n  Lat: <span>${lat}</span>\n</p>\n<p>\n  Long: <span>${long}</span>\n</p>\n<p class=\"description\">\n  <p>Weather: <span>${weather.toLowerCase()}</span></p>\n  <p>Temperature: <span id=\"temp-holder\">${tempF}&#8457;</span> <button id=\"temp-button\">&#8457; / &#8451;</button></p>            \n</p>`;\n};\n\n\n\n\n//# sourceURL=webpack:///./src/javascript/contentModule.js?");
+
+/***/ }),
+
 /***/ "./src/javascript/index.js":
 /*!*********************************!*\
   !*** ./src/javascript/index.js ***!
@@ -94,7 +106,19 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _weatherModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weatherModule */ \"./src/javascript/weatherModule.js\");\n\n\nconst form = document.querySelector('div[weather] #weather-form');\n\nform.addEventListener('submit', (event) => {\n  const city = document.querySelector('div[weather] form > input[name=\"city\"]').value.toLowerCase();\n  const country = document.querySelector('div[weather] form > input[name=\"country\"]').value.toLowerCase();\n  _weatherModule__WEBPACK_IMPORTED_MODULE_0__[\"container\"].innerHTML = '';\n  Object(_weatherModule__WEBPACK_IMPORTED_MODULE_0__[\"loadWeather\"])(city, country);\n  form.reset();\n  event.preventDefault();\n});\n\n\n//# sourceURL=webpack:///./src/javascript/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _weatherModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weatherModule */ \"./src/javascript/weatherModule.js\");\n\n\nconst form = document.querySelector('div[weather] #weather-form');\n\nform.addEventListener('submit', (event) => {\n  const city = document.querySelector('div[weather] form > input[name=\"city\"]').value.toLowerCase();\n  const country = document.querySelector('div[weather] form > input[name=\"country\"]').value.toLowerCase();\n  _weatherModule__WEBPACK_IMPORTED_MODULE_0__[\"container\"].innerHTML = '';\n  _weatherModule__WEBPACK_IMPORTED_MODULE_0__[\"WeatherModule\"].fetchWeather(city, country);\n  form.reset();\n  event.preventDefault();\n});\n\n\n//# sourceURL=webpack:///./src/javascript/index.js?");
+
+/***/ }),
+
+/***/ "./src/javascript/temperatureChangeModule.js":
+/*!***************************************************!*\
+  !*** ./src/javascript/temperatureChangeModule.js ***!
+  \***************************************************/
+/*! exports provided: tempButtonFunction */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"tempButtonFunction\", function() { return tempButtonFunction; });\n/* harmony import */ var _weatherModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weatherModule */ \"./src/javascript/weatherModule.js\");\n\n\nconst tempButtonFunction = () => {\n  const tempButton = document.querySelector('#temp-button');\n  const tempHolder = document.querySelector('#temp-holder');\n  const [tempF, tempC] = _weatherModule__WEBPACK_IMPORTED_MODULE_0__[\"WeatherModule\"].tempArray;\n  let tempCount = 1;\n\n  tempButton.addEventListener('click', (e) => {\n    if (tempCount % 2 === 0) {\n      tempHolder.innerHTML = tempF;\n    } else {\n      tempHolder.innerHTML = tempC;\n    }\n    tempCount += 1;\n    e.preventDefault();\n  });\n};\n\n\n\n\n//# sourceURL=webpack:///./src/javascript/temperatureChangeModule.js?");
 
 /***/ }),
 
@@ -102,11 +126,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _wea
 /*!*****************************************!*\
   !*** ./src/javascript/weatherModule.js ***!
   \*****************************************/
-/*! exports provided: loadWeather, container */
+/*! exports provided: WeatherModule, container */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadWeather\", function() { return loadWeather; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"container\", function() { return container; });\n/* eslint-disable no-unused-vars */\nconst container = document.querySelector('div[weather] .content');\nconst location = document.createElement('div');\nconst img = document.createElement('img');\nlocation.classList.add('location');\nlet tempArray = [];\nlet tempCount = 1;\n\nconst tempButtonFunction = () => {\n  const tempButton = document.querySelector('#temp-button');\n  const tempHolder = document.querySelector('#temp-holder');\n  const [tempF, tempC] = tempArray;\n  tempButton.addEventListener('click', (e) => {\n    if (tempCount % 2 === 0) {\n      tempHolder.innerHTML = tempF;\n    } else {\n      tempHolder.innerHTML = tempC;\n    }\n    tempCount += 1;\n    e.preventDefault();\n  });\n};\n\nconst loadWeather = (ci, co) => {\n  const url = `https://api.aerisapi.com/observations/${ci},${co}?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK`;\n  fetch(url, { mode: 'cors' })\n    .then((response) => response.json())\n    .then((response) => {\n      if (response) {\n        const {\n          weather, tempF, tempC, icon, isDay,\n        } = response.response.ob;\n        tempArray = [`${tempF}&#8457;`, `${tempC}&#8451;`];\n        const { lat, long } = response.response.loc;\n        const content = `<p class=\"header\">\n        Location: <span>${ci}, ${co}</span>\n      </p>\n      <p>            \n        Lat: <span>${lat}</span>\n      </p>\n      <p>\n        Long: <span>${long}</span>\n      </p>\n      <p class=\"description\">\n        <p>Weather: <span>${weather.toLowerCase()}</span></p>\n        <p>Temperature: <span id=\"temp-holder\">${tempF}&#8457;</span> <button id=\"temp-button\">&#8457; / &#8451;</button></p>            \n      </p>`;\n        location.innerHTML = content;\n        img.setAttribute('src', `https://cdn.aerisapi.com/wxicons/v2/${icon}`);\n        img.setAttribute('alt', 'weather-icon');\n        container.appendChild(location);\n        container.appendChild(img);\n        tempButtonFunction();\n      } else {\n        container.innerHTML = `<p>Sorry! The weather data for ${ci}, ${co} is not available, try again later.</p>`;\n      }\n    })\n    .catch(() => {\n      container.innerHTML = `<p>Sorry! The weather data for ${ci}, ${co} is not available, try again later.</p>`;\n    });\n};\n\n\n\n\n\n//# sourceURL=webpack:///./src/javascript/weatherModule.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"WeatherModule\", function() { return WeatherModule; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"container\", function() { return container; });\n/* harmony import */ var _contentModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./contentModule */ \"./src/javascript/contentModule.js\");\n/* harmony import */ var _temperatureChangeModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./temperatureChangeModule */ \"./src/javascript/temperatureChangeModule.js\");\n\n\n\nconst container = document.querySelector('div[weather] .content');\n\nconst WeatherModule = (()=>{\n  const location = document.createElement('div');\n  const img = document.createElement('img');\n  location.classList.add('location');\n\n  const mod = {}\n  \n  mod.tempArray = [];\n  mod.loadWeather = (response, city) => {\n    const {\n      tempF, tempC, icon,\n    } = response.response.ob;\n\n    WeatherModule.tempArray = [`${tempF}&#8457;`, `${tempC}&#8451;`];\n\n    const data = response.response\n    const content = Object(_contentModule__WEBPACK_IMPORTED_MODULE_0__[\"weatherContent\"])(data, city);\n    location.innerHTML = content;\n    img.setAttribute('src', `https://cdn.aerisapi.com/wxicons/v2/${icon}`);\n    img.setAttribute('alt', 'weather-icon');\n    container.appendChild(location);\n    container.appendChild(img);\n    Object(_temperatureChangeModule__WEBPACK_IMPORTED_MODULE_1__[\"tempButtonFunction\"])();\n  },\n\n  mod.fetchWeather = async (city, country) => {\n    const url = `https://api.aerisapi.com/observations/${city},${country}?client_id=fXqdhQQAlw2yTQGiX179N&client_secret=k0y4NauNd3aeeuJljCS2DXZMClP3m9jQN5HQCQtK`;\n    try {\n      const response = await fetch(url, { mode: 'cors' });\n      const response_1 = await response.json();\n      return WeatherModule.loadWeather(response_1, city);\n    }\n    catch (e) {\n      console.log(e);\n      container.innerHTML = Object(_contentModule__WEBPACK_IMPORTED_MODULE_0__[\"errorContent\"])(city);\n    }\n  };\n\n  return mod;\n})();\n\n\n\n\n\n//# sourceURL=webpack:///./src/javascript/weatherModule.js?");
 
 /***/ })
 
