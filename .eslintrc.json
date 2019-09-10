@@ -9,5 +9,11 @@
       "es6": true
   },
   
-  "extends": "airbnb-base"
+  "extends": "airbnb-base",
+  "rules": {
+      "no-self-import": "off",
+      "import/no-cycle": "off",
+      "import/prefer-default-export": "off",
+      "arrow-parens": "off"
+  }
 }
