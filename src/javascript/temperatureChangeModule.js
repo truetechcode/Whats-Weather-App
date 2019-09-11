@@ -1,9 +1,9 @@
-import { WeatherModule } from './weatherModule';
+import { DomModule } from './weatherDomModule';
 
 const tempButtonFunction = () => {
   const tempButton = document.querySelector('#temp-button');
   const tempHolder = document.querySelector('#temp-holder');
-  const [tempF, tempC] = WeatherModule.tempArray;
+  const [tempF, tempC] = DomModule.tempArray;
   let tempCount = 1;
 
   tempButton.addEventListener('click', (e) => {
