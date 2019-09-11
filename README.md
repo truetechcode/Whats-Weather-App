@@ -7,7 +7,7 @@ The app uses JavaScript to communicate with a weather api and dynamically render
 
 ## LIVE DEMO
 
-[Live Preview](https://truetechcode.github.io/Restaurant-Page/)
+[Live Preview](https://raw.githack.com/truetechcode/Whats-Weather-App/master/dist/index.html)
 
 ## Contributor
 
