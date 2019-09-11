@@ -1,0 +1,186 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+sub,
+sup,
+tt,
+var,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+}
+
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1em;
+    background: #F5F5F5;
+    font-family: 'Dosis', sans-serif;
+    color: #565659;
+    background-color: #f6f3ee;
+}
+
+button {
+  cursor: pointer;
+}
+
+div[weather] {
+  border: 2px solid #5a5243;
+  background: #f29b4b;
+  width: 40%;
+  min-height: 300px;
+  margin: 20px auto;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+div[weather] h2{
+  font-size: 3em;
+  margin-bottom: 5px;
+  background: #F5F5F5;
+  border: 1px solid #F5F5F5;
+  border-radius: 5px;
+  text-align: center;
+  font-variant-caps: all-small-caps;
+  font-family: 'Fredoka One', cursive;
+  color: #5a5243;
+}
+
+div[weather] p{
+  color: #555555;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+div[weather] p.header{
+  font-weight: 600;
+}
+
+div[weather] p span{
+  color: #F5F5F5;
+  font-variant: small-caps;
+}
+
+div[weather] img{
+  width: 200px;
+}
+
+div[weather] #loading{
+  font-size: 2em;
+  font-weight: bold;
+  color: #F5F5F5;
+}
+
+div[weather] .content{
+  display: flex;
+  justify-content: space-around;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+div[weather] .content .location{
+  width: 250px;
+  padding-top: 6%;
+}
+
+form[id="weather-form"] {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+form[id="weather-form"] input {
+  border-radius: 1px;
+  border: none;  
+  height: 25px;  
+  width: 200px;
+  padding: 0 10px;
+  margin-bottom: 0.5em;
+  color: orangered;
+  font-variant-caps: all-small-caps;  
+  font-size: 1.5em;
+}
+
+form[id="weather-form"] button {
+  width: 90%;
+  border-radius: 1px;
+  border: none;
+  height: 25px;
+}
